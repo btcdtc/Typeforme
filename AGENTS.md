@@ -57,6 +57,8 @@ scripts/deploy-ios.sh
 - ASR and correction are designed to fail explicitly when required local runtime files or models are missing.
 - Normal logs should avoid raw user text. Debug capture may store raw audio and text locally for diagnosis.
 - Keyboard and Bridge code touch system permissions, local networking, pasteboard, and App Group style coordination; validate those paths carefully after behavior changes.
+- iOS keyboard dictation is host-owned by design. Preserve the three separate audio paths unless you have verified a replacement on simulator and device: host UI `AudioRecorder` prewarm for direct host recording, keyboard `StandbyAudioSession` for extension-initiated mic capture, and `StandbyKeeper` silent audio for background reachability. Post-record keyboard standby refresh is best-effort and must not surface as a user-facing failure after a successful recording.
+- After changing iOS recording, keyboard standby, URL handoff, Darwin notifications, or `AVAudioSession` behavior, verify at minimum: `typeforme://microphone?...` produces `sessionStarted`; with Typeforme backgrounded, `requestStartDictation` produces `dictationStarted`; `requestStopDictation` produces `dictationStopped`; then deploy to a real device when microphone behavior is affected.
 
 ## Documentation
 
