@@ -23,7 +23,7 @@
 
 - Naming gate: user-facing product text must use `Typeforme`; URL schemes, logs, directories, and machine-readable identifiers must use lowercase `typeforme`.
 - Compatibility gate: reject changes that add legacy aliases, fallback keys, old bundle identifiers, old URL schemes, old defaults domains, old pairing JSON keys, one-time migrations, or rename-era cleanup code unless the user explicitly asks for a migration.
-- Current identifier gate: valid identifiers are `com.example.typeforme.mac`, `com.example.typeforme`, `com.example.typeforme.keyboard`, `typeforme://`, and `~/Library/Application Support/Typeforme/`.
+- Current identifier gate: iOS identifiers are derived from `TYPEFORME_BUNDLE_PREFIX` (`$(TYPEFORME_BUNDLE_PREFIX).typeforme`, `$(TYPEFORME_BUNDLE_PREFIX).typeforme.keyboard`, and `group.$(TYPEFORME_BUNDLE_PREFIX).typeforme`). The public default prefix is `com.example`; local signing may override it with ignored config. Other valid identifiers are `typeforme://` and `~/Library/Application Support/Typeforme/`.
 - Pairing gate: pairing JSON may contain `token`, enabled `lan_bridge_url` / `lan_bridge_urls`, and enabled `public_bridge_url`; do not add Docker origin, local SSID, tunnel vendor metadata, or duplicated legacy fields.
 - Migration exception gate: if a migration is explicitly requested, the same change must document exact input, output, code location, and removal date.
 
